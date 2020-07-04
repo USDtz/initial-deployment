@@ -43,7 +43,7 @@ In the `run()` method disable the code from step 1 uncomment the line below "ste
 Currently, the following wallets allow USDtz interactions for balance holders.
 
 - [Galleon Preview 1.1.2b](https://github.com/Cryptonomic/Deployments/wiki/Galleon:-Releases#version-112b-may-14-2020) by [Cryptonomic Inc](https://cryptonomic.tech/).
-- AirGap
+- [Thanos Wallet](https://thanoswallet.com)
 
 Additionally, administration functions are supported by:
 
@@ -55,9 +55,9 @@ View [USDtz operations](https://arronax.io/tezos/mainnet/operations/query/eyJmaW
 
 See USDtz on the various Tezos block explorers.
 
-[TezBlock](https://tezblock.io/contract/KT1LN4LPSqTMS7Sd2CJw4bbDGRkMv2t68Fy9)
-[Better Call Dev](https://better-call.dev/mainnet/KT1LN4LPSqTMS7Sd2CJw4bbDGRkMv2t68Fy9/operations)
-[TzStats](https://tzstats.com/KT1LN4LPSqTMS7Sd2CJw4bbDGRkMv2t68Fy9)
-[TzKt](https://tzkt.io/KT1LN4LPSqTMS7Sd2CJw4bbDGRkMv2t68Fy9/operations)
-[Mininax](https://mininax.io/mainnet/accounts/KT1LN4LPSqTMS7Sd2CJw4bbDGRkMv2t68Fy9)
-[Arronax](https://arronax.io/tezos/mainnet/accounts/KT1LN4LPSqTMS7Sd2CJw4bbDGRkMv2t68Fy9)
+- [TezBlock](https://tezblock.io/contract/KT1LN4LPSqTMS7Sd2CJw4bbDGRkMv2t68Fy9)
+- [Better Call Dev](https://better-call.dev/mainnet/KT1LN4LPSqTMS7Sd2CJw4bbDGRkMv2t68Fy9/operations)
+- [TzStats](https://tzstats.com/KT1LN4LPSqTMS7Sd2CJw4bbDGRkMv2t68Fy9)
+- [TzKt](https://tzkt.io/KT1LN4LPSqTMS7Sd2CJw4bbDGRkMv2t68Fy9/operations)
+- [Mininax](https://mininax.io/mainnet/accounts/KT1LN4LPSqTMS7Sd2CJw4bbDGRkMv2t68Fy9)
+- [Arronax](https://arronax.io/tezos/mainnet/accounts/KT1LN4LPSqTMS7Sd2CJw4bbDGRkMv2t68Fy9)
