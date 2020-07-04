@@ -1,0 +1,22 @@
+{
+    "name": "usdtz-token-deployment",
+    "version": "0.0.1",
+    "description": "USDtz token deployment script",
+    "scripts": {
+        "postinstall": "npm run build",
+        "build": "tsc index.ts",
+        "start": "node index.js"
+    },
+    "license": "UNLICENSED",
+    "engines": {
+        "node": ">=12.13.x",
+        "npm": ">=6.13.x"
+    },
+    "homepage": "https://gist.github.com/anonymoussprocket",
+    "dependencies": {
+        "conseiljs": "0.4.2-beta.8"
+    },
+    "devDependencies": {
+        "typescript": "3.8.3"
+    }
+}
