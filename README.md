@@ -14,7 +14,7 @@ In the `run()` method uncomment the line below "step 1", then run the following:
 
 ### 2
 
-Step 2 deploys the token contract which is the vanilla implementation of the FA1.2 token defined in TZIP7 proposal.
+Step 2 deploys the token contract which is the [vanilla implementation](https://gitlab.com/tzip/tzip/-/blob/master/proposals/tzip-7/ManagedLedger.tz) of the FA1.2 token defined in [TZIP7 proposal](https://gitlab.com/tzip/tzip/-/blob/master/proposals/tzip-7/ManagedLedger.md) using [ConseilJS](https://github.com/Cryptonomic/ConseilJS/blob/master/src/chain/tezos/contracts/Tzip7ReferenceTokenHelper.ts).
 
 In the `run()` method disable the code from step 1 uncomment the line below "step 2", then run the following: `npm run build && npm start`.
 
