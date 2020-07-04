@@ -28,13 +28,13 @@ In the `run()` method disable the code from step 2 uncomment the line below "ste
 
 [Step 4](https://mininax.io/mainnet/operations/oo9tqwMhfdVdNKVwjU3irfU1RbnfPihqBBRTw4stkdTK2qNVWTn) `mint`s a minimum balance to the final token admin. This step is necessary due to a limitation on Galleon Preview 1.1.1b wallet where the software will not allow UI-based interactions with the token contract unless the loaded account has a balance in that ledger. This step mints "1" which is interpreted as 0.000001 USDtz, effectively 1 micro-dollar.
 
-In the `run()` method disable the code from step 1 uncomment the line below "step 4", then run the following: `npm run build && npm start`.
+In the `run()` method disable the code from step 3 uncomment the line below "step 4", then run the following: `npm run build && npm start`.
 
 ### 5
 
 [Step 5](https://mininax.io/mainnet/operations/oo5jVfJmDbcndU8aKy5rzzMsAKDu9R9o598MUU3n6er2apMdBGk) transfers ownership of the contract to the destination account. This was the address designated by [StableTez](https://stabletez.com/). Once this operation completes the initial deployment account loses control of the contract.
 
-In the `run()` method disable the code from step 1 uncomment the line below "step 5", then run the following: `npm run build && npm start`.
+In the `run()` method disable the code from step 4 uncomment the line below "step 5", then run the following: `npm run build && npm start`.
 
 ## USDtz support
 
