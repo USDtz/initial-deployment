@@ -1,67 +1,82 @@
-import { TezosNodeReader, TezosNodeWriter, TezosConseilClient, TezosWalletUtil, setLogLevel, KeyStore, Tzip7ReferenceTokenHelper } from 'conseiljs';
+import fetch from 'node-fetch';
+import * as log from 'loglevel';
 
-setLogLevel('debug');
+import { registerFetch, registerLogger } from 'conseiljs';
 
-const tezosNode = '...';
-const conseilServer = { url: '...', apiKey: '...', network: 'mainnet' };
+import { TezosNodeReader, TezosNodeWriter, TezosConseilClient, TezosMessageUtils, KeyStore, Signer, Tzip7ReferenceTokenHelper } from 'conseiljs';
+import { KeyStoreUtils, SoftSigner } from 'conseiljs-softsigner';
+
+const logger = log.getLogger('conseiljs');
+logger.setLevel('debug', false);
+registerLogger(logger);
+registerFetch(fetch);
+
+const tezosNode = '';
+const conseilServer = { url: '', apiKey: 'hooman', network: 'mainnet' };
 const networkBlockTime = 60 + 1;
 
 function clearRPCOperationGroupHash(hash: string) {
     return hash.replace(/\"/g, '').replace(/\n/, '');
 }
 
-async function initAccount(keyStore: KeyStore) {
+async function initAccount(signer: Signer, keyStore: KeyStore) {
     if (await TezosNodeReader.isManagerKeyRevealedForAccount(tezosNode, keyStore.publicKeyHash)) { return; }
 
-    const nodeResult = await TezosNodeWriter.sendKeyRevealOperation(tezosNode, keyStore);
+    const nodeResult = await TezosNodeWriter.sendKeyRevealOperation(tezosNode, signer, keyStore);
     const groupid = clearRPCOperationGroupHash(nodeResult.operationGroupID);
     console.log(`Injected reveal operation with ${groupid}`);
 
     await TezosConseilClient.awaitOperationConfirmation(conseilServer, conseilServer.network, groupid, 5, networkBlockTime);
 }
 
-async function deployTokenContract(keyStore: KeyStore) {
+async function deployTokenContract(signer: Signer, keyStore: KeyStore) {
     console.log('deploying a tzip7 token contract');
-    const groupid = await Tzip7ReferenceTokenHelper.deployContract(tezosNode, keyStore, 500_000, keyStore.publicKeyHash, true, 0, 150_000, 5_000);
+    const groupid = await Tzip7ReferenceTokenHelper.deployContract(tezosNode, signer, keyStore, 500_000, keyStore.publicKeyHash, true, 0, 150_000, 5_000);
+    console.log(`injected operation ${groupid}`);
 }
 
-async function enableToken(keyStore: KeyStore, contractAddress: string) {
+async function enableToken(signer: Signer, keyStore: KeyStore, contractAddress: string) {
     console.log(`enabling token at ${contractAddress}`);
-    const groupid = await Tzip7ReferenceTokenHelper.activateLedger(tezosNode, keyStore, contractAddress, 500_000, 150_000, 1_000);
+    const groupid = await Tzip7ReferenceTokenHelper.activateLedger(tezosNode, signer, keyStore, contractAddress, 500_000, 150_000, 1_000);
+    console.log(`injected operation ${groupid}`);
 }
 
-async function mintMinimumBalance(keyStore: KeyStore, contractAddress: string, targetAdmin: string) {
+async function mintMinimumBalance(signer: Signer, keyStore: KeyStore, contractAddress: string, targetAdmin: string) {
     console.log(`minting minimum balance future admin ${targetAdmin}`);
-    const groupid = await Tzip7ReferenceTokenHelper.mint(tezosNode, keyStore, contractAddress, 500_000, targetAdmin, 1, 150_000, 1_000);
+    const groupid = await Tzip7ReferenceTokenHelper.mint(tezosNode, signer, keyStore, contractAddress, 500_000, targetAdmin, 1, 150_000, 1_000);
+    console.log(`injected operation ${groupid}`);
 }
 
-async function transferAdminRights(keyStore: KeyStore, contractAddress: string, targetAdmin: string) {
+async function transferAdminRights(signer: Signer, keyStore: KeyStore, contractAddress: string, targetAdmin: string) {
     console.log(`transferring ownership to ${targetAdmin}`);
-    const groupid = await Tzip7ReferenceTokenHelper.setAdministrator(tezosNode, keyStore, contractAddress, targetAdmin, 500_000, 150_000, 1_000);
+    const groupid = await Tzip7ReferenceTokenHelper.setAdministrator(tezosNode, signer, keyStore, contractAddress, targetAdmin, 500_000, 150_000, 1_000);
+    console.log(`injected operation ${groupid}`);
 }
 
 async function run() {
     let keyStore: KeyStore;
-    const contractAddress = 'KT1LN4LPSqTMS7Sd2CJw4bbDGRkMv2t68Fy9';
-    const targetAdmin = 'tz1P19MKNTwB7qxoU47bvsu2c3u54vdM8R4m';
+    let signer: Signer;
+    const contractAddress = '';
+    const targetAdmin = '';
 
-    keyStore = await TezosWalletUtil.restoreIdentityWithSecretKey('');
+    keyStore = await KeyStoreUtils.restoreIdentityFromSecretKey('');
+    signer = await SoftSigner.createSigner(TezosMessageUtils.writeKeyWithHint(keyStore.secretKey, 'edsk'));
     console.log(`loaded keys for ${keyStore.publicKeyHash}`);
 
     // step 1
-    //await initAccount(keyStore);
+    //await initAccount(signer, keyStore);
 
     // step 2
-    //await deployTokenContract(keyStore);
+    //await deployTokenContract(signer, keyStore);
 
     // step 3
-    //await enableToken(keyStore, contractAddress);
+    //await enableToken(signer, keyStore, contractAddress);
 
     // step 4
-    //await mintMinimumBalance(keyStore, contractAddress, targetAdmin);
+    //await mintMinimumBalance(signer, keyStore, contractAddress, targetAdmin);
 
     // step 5
-    //await transferAdminRights(keyStore, contractAddress, targetAdmin);
+    //await transferAdminRights(signer, keyStore, contractAddress, targetAdmin);
 }
 
 run();
